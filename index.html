@@ -1402,45 +1402,7 @@ console.log("Made by Daybreak: https://daybreak.studio");
 }
 </style>
 </head><body class="mf1-body">
-<!-- Video Preloader -->
-<div id="cricket-preloader" class="cricket-preloader">
-  <div class="preloader-content" style="max-width: 100%; width: 100%; height: 100%; padding: 0;">
-    <video id="preloader-video" autoplay muted playsinline style="width: 100%; height: 100%; object-fit: contain;">
-      <source src="Branding_stuff/preloader_animation.mp4" type="video/mp4" />
-      <source src="Branding_stuff/Preloader animation (1).mp4" type="video/mp4" />
-    </video>
-  </div>
-</div>
-<script>
-(function() {
-  const preloader = document.getElementById('cricket-preloader');
-  const video = document.getElementById('preloader-video');
-  if (!preloader) return;
 
-  let hidden = false;
-  function hidePreloader() {
-    if (hidden) return;
-    hidden = true;
-    preloader.classList.add('preloader-hidden');
-    setTimeout(function() {
-      if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-    }, 700);
-  }
-
-  if (video) {
-    video.addEventListener('ended', hidePreloader);
-  }
-
-  window.addEventListener('load', function() {
-    if (video) {
-      video.play().catch(function() {});
-    }
-  });
-
-  // Fallback timer if video ends or takes long
-  setTimeout(hidePreloader, 4000);
-})();
-</script>
 <div class="mf1-global-styles w-embed"><style>
  
 * {
