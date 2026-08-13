@@ -2424,32 +2424,24 @@ document.addEventListener('DOMContentLoaded', () => {
     <!-- ── LAYER 2: Sliding panels (mascot + 3 hoardings) ── -->
     <div class="brand-panels-track" id="brand-panels-track">
 
-      <!-- Panel 0 – Mascot Creative (starts visible) -->
-      <!-- RED CIRCLE = positioning guide for Mascot Creative. Move via inspect to find ideal position -->
+      <!-- Panel 0 – Mascot Creative -->
       <div class="brand-panel brand-panel--pos" id="bp-mascot">
-        <img class="bp-img" src="Branding_stuff/Mascot Creative.jpeg" alt="Soormas Mascot Creative" />
-        <div class="bp-circle" id="circle-mascot" title="Mascot position marker">MASCOT</div>
+        <img id="img-mascot" class="bp-img" src="Branding_stuff/Mascot Creative.jpeg" alt="Soormas Mascot Creative" style="top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.0);" />
       </div>
 
       <!-- Panel 1 – Hoarding 1 -->
-      <!-- RED CIRCLE = positioning guide for Hoarding 1. Move via inspect to find ideal position -->
       <div class="brand-panel brand-panel--pos" id="bp-h1">
-        <img class="bp-img" src="Branding_stuff/HOARDING 1.jpeg" alt="Hoarding 1" loading="lazy" />
-        <div class="bp-circle" id="circle-h1" title="Hoarding 1 position marker">H1</div>
+        <img id="img-h1" class="bp-img" src="Branding_stuff/HOARDING 1.jpeg" alt="Hoarding 1" style="top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.0);" />
       </div>
 
       <!-- Panel 2 – Hoarding 2 -->
-      <!-- RED CIRCLE = positioning guide for Hoarding 2. Move via inspect to find ideal position -->
       <div class="brand-panel brand-panel--pos" id="bp-h2">
-        <img class="bp-img" src="Branding_stuff/HOARDING 2.png" alt="Hoarding 2" loading="lazy" />
-        <div class="bp-circle" id="circle-h2" title="Hoarding 2 position marker">H2</div>
+        <img id="img-h2" class="bp-img" src="Branding_stuff/HOARDING 2.png" alt="Hoarding 2" style="top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.0);" />
       </div>
 
       <!-- Panel 3 – Hoarding 3 -->
-      <!-- RED CIRCLE = positioning guide for Hoarding 3. Move via inspect to find ideal position -->
       <div class="brand-panel brand-panel--pos" id="bp-h3">
-        <img class="bp-img" src="Branding_stuff/HOARDING 3.png" alt="Hoarding 3" loading="lazy" />
-        <div class="bp-circle" id="circle-h3" title="Hoarding 3 position marker">H3</div>
+        <img id="img-h3" class="bp-img" src="Branding_stuff/HOARDING 3.png" alt="Hoarding 3" style="top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.0);" />
       </div>
 
     </div>
@@ -2534,49 +2526,14 @@ document.addEventListener('DOMContentLoaded', () => {
   overflow: visible;
 }
 
-/* Main image inside each panel — freely repositionable */
+/* Main image inside each panel — freely repositionable via inspect element */
 .bp-img {
   position: absolute;
-  /* Default: right half, vertically centered */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 48%;
-  max-height: 88vh;
+  max-width: 90%;
+  max-height: 90vh;
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.40);
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-
-/* Red circle positioning guide — drag via inspect to set desired placement */
-.bp-circle {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: rgba(220, 20, 20, 0.85);
-  border: 3px solid #fff;
-  z-index: 20;
-  cursor: move;
-  /* Default position — user will move this in inspect */
-  top: 50%;
-  left: 75%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-  /* Label inside circle */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Arial Narrow', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.5px;
-  text-align: center;
-  line-height: 1.2;
-  pointer-events: auto;
 }
 
 /* Default state for every panel: off-screen to the right (except mascot) */
