@@ -2404,9 +2404,290 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 </script>
 </section>
-<section id="mascot-section" style="width:100%; padding:0; margin:0; line-height:0;">
-  <img src="Branding_stuff/Mascot Creative.jpeg" alt="Amritsar Soormas Mascot" style="width:100%; height:auto; display:block;" />
-</section>
+<!-- =====================================================
+     SOORMAS BRAND SHOWCASE — Sticky Scroll Section
+     Scroll drives: Banner morphs + panels slide left
+     ===================================================== -->
+<section id="soormas-brand-showcase">
+
+  <!-- Sticky viewport that pins while user scrolls through 4 segments -->
+  <div id="brand-showcase-sticky">
+
+    <!-- ── LAYER 1: Banner backgrounds (cross-fade) ── -->
+    <div class="brand-bg-layer">
+      <img class="brand-bg-img" id="bbg-0" src="Branding_stuff/Banner.png"  alt="Banner"   />
+      <img class="brand-bg-img" id="bbg-1" src="Branding_stuff/Banner 1.png" alt="Banner 1" />
+      <img class="brand-bg-img" id="bbg-2" src="Branding_stuff/Banner 2.png" alt="Banner 2" />
+      <img class="brand-bg-img" id="bbg-3" src="Branding_stuff/Banner 3.png" alt="Banner 3" />
+    </div>
+
+    <!-- ── LAYER 2: Sliding panels (mascot + 3 hoardings) ── -->
+    <div class="brand-panels-track" id="brand-panels-track">
+
+      <!-- Panel 0 – Mascot Creative (starts visible) -->
+      <div class="brand-panel" id="bp-mascot">
+        <img src="Branding_stuff/Mascot Creative.jpeg" alt="Soormas Mascot Creative" />
+      </div>
+
+      <!-- Panel 1 – Hoarding 1 (slides in from right on first scroll) -->
+      <div class="brand-panel" id="bp-h1">
+        <img src="Branding_stuff/HOARDING 1.jpeg" alt="Hoarding 1" />
+      </div>
+
+      <!-- Panel 2 – Hoarding 2 -->
+      <div class="brand-panel" id="bp-h2">
+        <img src="Branding_stuff/HOARDING 2.png" alt="Hoarding 2" />
+      </div>
+
+      <!-- Panel 3 – Hoarding 3 -->
+      <div class="brand-panel" id="bp-h3">
+        <img src="Branding_stuff/HOARDING 3.png" alt="Hoarding 3" />
+      </div>
+
+    </div>
+
+    <!-- ── Progress dots ── -->
+    <div class="brand-dots" id="brand-dots">
+      <span class="brand-dot active" data-index="0"></span>
+      <span class="brand-dot"        data-index="1"></span>
+      <span class="brand-dot"        data-index="2"></span>
+      <span class="brand-dot"        data-index="3"></span>
+    </div>
+
+  </div><!-- /.brand-showcase-sticky -->
+
+</section><!-- /#soormas-brand-showcase -->
+
+<style>
+/* =====================================================
+   SOORMAS BRAND SHOWCASE STYLES
+   ===================================================== */
+
+#soormas-brand-showcase {
+  /* 4 segments × 100vh scroll distance */
+  height: 500vh;
+  position: relative;
+}
+
+#brand-showcase-sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+/* ── Background layer ── */
+.brand-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.brand-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+
+.brand-bg-img.active {
+  opacity: 1;
+}
+
+/* ── Sliding panels track ── */
+.brand-panels-track {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  /* panels sit side-by-side but we clip via the sticky container */
+}
+
+.brand-panel {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  /* Each panel: right half of the viewport */
+  right: 0;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity  0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-panel img {
+  max-width: 100%;
+  max-height: 92%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Default state for every panel: off-screen to the right (except mascot) */
+#bp-mascot  { transform: translateX(0%);    opacity: 1; }
+#bp-h1      { transform: translateX(100%);  opacity: 0; }
+#bp-h2      { transform: translateX(200%);  opacity: 0; }
+#bp-h3      { transform: translateX(300%);  opacity: 0; }
+
+/* ── Progress dots ── */
+.brand-dots {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+}
+
+.brand-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.brand-dot.active {
+  background: #fff;
+  transform: scale(1.3);
+}
+
+/* ── Hint label (small caption at bottom) ── */
+#brand-showcase-sticky::after {
+  content: "SCROLL TO EXPLORE";
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  z-index: 10;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+}
+
+/* ── Mobile adjustments ── */
+@media (max-width: 767px) {
+  .brand-panel {
+    width: 88%;
+    right: 6%;
+  }
+  #soormas-brand-showcase {
+    height: 450vh;
+  }
+}
+</style>
+
+<script>
+(function () {
+  'use strict';
+
+  const PANELS = 4; // mascot + 3 hoardings  →  4 segments (0→3)
+
+  const section = document.getElementById('soormas-brand-showcase');
+  const sticky  = document.getElementById('brand-showcase-sticky');
+
+  const bgImgs = [
+    document.getElementById('bbg-0'),
+    document.getElementById('bbg-1'),
+    document.getElementById('bbg-2'),
+    document.getElementById('bbg-3'),
+  ];
+
+  const panels = [
+    document.getElementById('bp-mascot'),
+    document.getElementById('bp-h1'),
+    document.getElementById('bp-h2'),
+    document.getElementById('bp-h3'),
+  ];
+
+  const dots = Array.from(document.querySelectorAll('.brand-dot'));
+
+  // Segment index tracks which "step" we're on (0-3)
+  let currentSegment = -1;
+
+  function applySegment(seg) {
+    if (seg === currentSegment) return;
+    currentSegment = seg;
+
+    // ── Backgrounds: show only the matching one ──
+    bgImgs.forEach((img, i) => {
+      img.classList.toggle('active', i === seg);
+    });
+
+    // ── Panels: each panel's translateX depends on position relative to seg ──
+    //   panel i at segment seg → offset = (i - seg) * 100%
+    panels.forEach((panel, i) => {
+      const offset = (i - seg) * 100;
+      panel.style.transform = `translateX(${offset}%)`;
+
+      // Fade out panels that are far off-screen
+      if (Math.abs(i - seg) >= 2) {
+        panel.style.opacity = '0';
+      } else {
+        panel.style.opacity = '1';
+      }
+    });
+
+    // ── Dots ──
+    dots.forEach((d, i) => d.classList.toggle('active', i === seg));
+  }
+
+  function onScroll() {
+    if (!section) return;
+
+    const sectionTop    = section.getBoundingClientRect().top + window.scrollY;
+    const sectionHeight = section.offsetHeight;
+    const stickyH       = window.innerHeight;
+    const scrollable    = sectionHeight - stickyH;
+
+    if (scrollable <= 0) return;
+
+    const scrolled = window.scrollY - sectionTop;
+    // scrolled goes from 0 → scrollable across the section
+    const progress = Math.max(0, Math.min(1, scrolled / scrollable));
+
+    // Map progress (0→1) onto segments (0 → PANELS-1)
+    const rawSeg = progress * (PANELS - 1);
+    const seg    = Math.min(PANELS - 1, Math.round(rawSeg));
+
+    applySegment(seg);
+  }
+
+  // Dot click → scroll to matching segment
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      const sectionTop    = section.getBoundingClientRect().top + window.scrollY;
+      const sectionHeight = section.offsetHeight;
+      const stickyH       = window.innerHeight;
+      const scrollable    = sectionHeight - stickyH;
+
+      const target = sectionTop + (i / (PANELS - 1)) * scrollable;
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    });
+  });
+
+  // Init: show segment 0
+  applySegment(0);
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+})();
+</script>
+
 <section class="mf1-search-section">
 <div class="w-layout-blockcontainer mf1-section-content-container w-container"><div class="mf1-search-cards-container"><div class="mf1-search-connector mf1-6" id="search-connector-6" style="opacity: 0; transform: translate(20%, 150%) rotate(-6.48884deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" src="Branding_stuff/cards/mf1-6.png"/></div><div class="mf1-search-connector mf1-5" id="search-connector-5" style="opacity: 0; transform: translate(150%, -50%) rotate(5.02798deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" src="Branding_stuff/cards/mf1-5.png"/></div><div class="mf1-search-connector mf1-4" id="search-connector-4" style="opacity: 0; transform: translate(-130%, -100%) rotate(-4.92815deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" src="Branding_stuff/cards/mf1-4.png"/></div><div class="mf1-search-connector mf1-3" id="search-connector-3" style="opacity: 0; transform: translate(180%, 20%) rotate(0.177808deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1).png 527w"/></div><div class="mf1-search-connector mf1-2" id="search-connector-2" style="opacity: 0; transform: translate(-60%, 150%) rotate(8.85873deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1).png 729w"/></div><div class="mf1-search-connector mf1-1" id="search-connector-1" style="opacity: 0; transform: translate(-200%, 10%) rotate(-3.02342deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" src="Branding_stuff/cards/mf1-1.png?v=3"/></div></div><div class="mf1-search-content" id="w-node-cb2fc037-d0cb-4d7e-781d-6b4e5425843d-f9f398e2"><div class="mf1-content-text-area"><p class="mf1-caption">AMRITSAR SOORMAS</p><h2 class="mf1-h2">Forged in Amritsar. Driven by Strategy.</h2><p class="mf1-paragraph">Before the Soormas hit the pitch, every match is won in the war room. From analyzing opponent data to crafting the perfect lineup, precision is our ultimate weapon.</p></div><div aria-label="A search box query for Monaco campaign content." class="mf1-search-box-container" id="search-box-container" style="transform: translate(0px, 0px);"><div aria-hidden="true" class="mf1-search-box-border-mask"><div class="mf1-search-box-border"><div class="mf1-search-box-border-embed w-embed" id="search-box-border-embed"><svg height="100%" preserveaspectratio="none" viewbox="0 0 900 100" width="100%" xmlns="http://www.w3.org/2000/svg">
 <rect class="mf1-search-box-rect-trace" fill="none" height="100" pathlength="1" rx="40" ry="40" stroke="currentColor" stroke-width="50" width="900" x="0" y="0"></rect>
